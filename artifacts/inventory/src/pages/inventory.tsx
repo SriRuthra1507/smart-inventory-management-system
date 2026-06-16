@@ -207,8 +207,7 @@ export default function Inventory() {
       const formData = new FormData();
       formData.append("file", importFile);
 
-      const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-      const response = await fetch(`${base}/api/products/import`, {
+      const response = await fetch(`/api/products/import`, {
         method: "POST",
         body: formData,
       });

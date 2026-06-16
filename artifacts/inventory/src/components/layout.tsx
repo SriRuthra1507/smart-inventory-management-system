@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Package, PlusCircle, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -51,18 +50,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="p-4 border-t border-border/50 mt-auto">
-          <div className="flex items-center gap-3 px-2 py-2 rounded-md hover:bg-secondary/50 cursor-pointer transition-colors">
-            <Avatar className="w-9 h-9 border border-border/50">
-              <AvatarFallback className="bg-primary/20 text-primary">JD</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium leading-none mb-1">John Doe</span>
-              <span className="text-xs text-muted-foreground leading-none">Manager</span>
-            </div>
-            <LogOut size={16} className="ml-auto text-muted-foreground" />
-          </div>
-        </div>
       </aside>
 
       {/* Main Content */}
