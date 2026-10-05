@@ -1,9 +1,20 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, Package, PlusCircle } from "lucide-react";
+import { useClerk, useUser } from "@clerk/react";
+import { LayoutDashboard, LogOut, Package, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+  const { signOut } = useClerk();
+  const { user } = useUser();
+  const accountName = user?.fullName || user?.username || "Signed in";
+  const accountEmail = user?.primaryEmailAddress?.emailAddress;
+  const avatarLetter =
+    user?.firstName?.slice(0, 1) ||
+    accountEmail?.slice(0, 1).toUpperCase() ||
+    "A";
 
   const navItems = [
     { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -50,6 +61,35 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        <div className="mt-auto border-t border-border/50 p-4">
+          <div className="mb-3 flex min-w-0 items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/20 text-sm font-semibold text-primary">
+              {avatarLetter}
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium text-foreground">
+                {accountName}
+              </p>
+              {accountEmail && (
+                <p className="truncate text-xs text-muted-foreground">
+                  {accountEmail}
+                </p>
+              )}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() =>
+              signOut({
+                redirectUrl: basePath ? `${basePath}/login` : "/login",
+              })
+            }
+            className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
+          >
+            <LogOut size={17} />
+            Log out
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}

@@ -4,7 +4,6 @@ import {
   useListProducts, 
   useDeleteProduct,
   getListProductsQueryKey,
-  getDashboardSummaryQueryKey,
   getGetDashboardSummaryQueryKey,
   getGetCategoryBreakdownQueryKey,
   getGetLowStockProductsQueryKey,
